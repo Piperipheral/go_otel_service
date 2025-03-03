@@ -16,9 +16,6 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/rolldice", rolldice.RollDice)
-
-	log.Fatal(http.ListenAndServe(":8080", nil))
 	if err := run(); err != nil {
 		log.Fatalln(err)
 	}
@@ -81,7 +78,6 @@ func newHTTPHandler() http.Handler {
 	// Register handlers.
 	handleFunc("/rolldice/", rolldice.RollDice)
 	handleFunc("/rolldice/{player}", rolldice.RollDice)
-	handleFunc("/rolldice/isthe", rolldice.RollDice)
 
 	// Add HTTP instrumentation for the whole server.
 	handler := otelhttp.NewHandler(mux, "/")
