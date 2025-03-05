@@ -80,8 +80,7 @@ func newPropagator() propagation.TextMapPropagator {
 }
 
 func newTracerProvider() (*trace.TracerProvider, error) {
-	traceExporter, err := stdouttrace.New(
-		stdouttrace.WithPrettyPrint())
+	traceExporter, err := stdouttrace.New()
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +102,7 @@ func newMeterProvider() (*metric.MeterProvider, error) {
 	meterProvider := metric.NewMeterProvider(
 		metric.WithReader(metric.NewPeriodicReader(metricExporter,
 			// Default is 1m. Set to 3s for demonstrative purposes.
-			metric.WithInterval(3*time.Second))),
+			metric.WithInterval(1*time.Minute))),
 	)
 	return meterProvider, nil
 }
